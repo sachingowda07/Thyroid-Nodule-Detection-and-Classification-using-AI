@@ -75,5 +75,6 @@ User → Upload Image → Flask Backend → Image Preprocessing → CNN Model �
 ## 👨‍💻 Author
 
 SACHIN J
+
 Final Year Project
 AI-Based Thyroid Nodule Detection and Classification
