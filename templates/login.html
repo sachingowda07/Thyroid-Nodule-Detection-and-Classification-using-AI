@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ThyroidDetect - Login</title>
+
+<style>
+    body {
+        margin: 0;
+        font-family: "Poppins", sans-serif;
+        background: #eef2f7;
+        overflow: hidden;
+    }
+
+    .container {
+        display: flex;
+        width: 100%;
+        height: 100vh;
+    }
+
+    .left-panel {
+        flex: 1.2;
+        background: url('/static/images/hero2.jpg') no-repeat center;
+        background-size: cover;
+        filter: brightness(92%);
+        border-right: 6px solid rgba(0, 0, 0, 0.12);
+    }
+
+    .right-panel {
+        flex: 0.8;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: #ffffff;
+    }
+
+    .login-box {
+        width: 350px;
+    }
+
+    .title {
+        font-size: 32px;
+        font-weight: 700;
+        color: #0d47a1;
+        margin-bottom: 5px;
+    }
+
+    .subtitle {
+        color: #44576b;
+        margin-bottom: 20px;
+        font-size: 15px;
+    }
+
+    .label {
+        font-size: 14px;
+        font-weight: 600;
+        margin-bottom: 5px;
+        display: block;
+    }
+
+    .input-field {
+        width: 100%;
+        padding: 12px;
+        border-radius: 7px;
+        border: 1px solid #c9d1d9;
+        margin-bottom: 15px;
+        font-size: 15px;
+    }
+
+    .login-btn {
+        width: 100%;
+        padding: 12px;
+        background: #0d47a1;
+        color: white;
+        border: none;
+        border-radius: 7px;
+        font-weight: 700;
+        font-size: 16px;
+        cursor: pointer;
+    }
+
+    .login-btn:hover {
+        background: #08306b;
+    }
+
+    .error-message {
+        background: #ffd5d5;
+        color: #b20000;
+        padding: 10px;
+        border-radius: 6px;
+        text-align: center;
+        margin-bottom: 15px;
+        font-size: 14px;
+        font-weight: 600;
+    }
+
+    .register-text {
+        text-align: center;
+        margin-top: 10px;
+        font-size: 14px;
+    }
+
+    .register-text a {
+        color: #0d47a1;
+        font-weight: 600;
+        text-decoration: none;
+    }
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="left-panel"></div>
+
+    <div class="right-panel">
+        <div class="login-box">
+
+            <div class="title">Welcome Back</div>
+            <div class="subtitle">Login to continue</div>
+
+            {% if error %}
+                <div class="error-message">{{ error }}</div>
+            {% endif %}
+
+            <form method="POST" action="/login">
+                
+                <label class="label">Email or Phone Number</label>
+                <input type="text" name="identifier" class="input-field" placeholder="Enter Email or Phone" required>
+
+                <label class="label">Password</label>
+                <input type="password" name="password" class="input-field" placeholder="Enter Password" required>
+
+                <button class="login-btn">Login</button>
+            </form>
+
+            <div class="register-text">
+                New user? <a href="/register">Click here to register</a>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

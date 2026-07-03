@@ -1,0 +1,157 @@
+{% extends "base.html" %}
+{% block content %}
+
+<style>
+.profile-container {
+    max-width: 1100px;
+    margin: 40px auto;
+    padding: 30px;
+    background: #ffffff;
+    border-radius: 25px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+    animation: fadeIn 0.8s ease;
+}
+
+.profile-title {
+    font-size: 32px;
+    font-weight: 800;
+    text-align: center;
+    color: #003366;
+    margin-bottom: 10px;
+}
+
+.profile-sub {
+    text-align: center;
+    color: #666;
+    margin-bottom: 30px;
+}
+
+.profile-grid {
+    display: flex;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+/* LEFT PANEL – USER INFO */
+.profile-left {
+    flex: 1;
+    min-width: 300px;
+    background: #f8faff;
+    padding: 25px;
+    border-radius: 20px;
+    border-left: 5px solid #003366;
+}
+
+.user-info-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #003366;
+    margin-bottom: 15px;
+}
+
+.info-line {
+    margin-bottom: 12px;
+    font-size: 16px;
+}
+
+.info-line b {
+    color: #003366;
+}
+
+/* RIGHT PANEL – SHORTCUT CARDS */
+.profile-right {
+    flex: 1;
+    min-width: 300px;
+}
+
+.dashboard-card {
+    background: white;
+    border-radius: 20px;
+    padding: 25px;
+    margin-bottom: 20px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.10);
+    cursor: pointer;
+    transition: 0.25s;
+}
+
+.dashboard-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 22px rgba(0,0,0,0.15);
+}
+
+.card-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: #003366;
+    margin-bottom: 8px;
+}
+
+.card-text {
+    font-size: 15px;
+    color: #555;
+}
+
+/* Fade animation */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+</style>
+
+
+<div class="profile-container">
+
+    <h2 class="profile-title">Your Profile</h2>
+    <p class="profile-sub">Manage your information and access your reports</p>
+
+    <div class="profile-grid">
+
+        <!-- LEFT: USER BASIC DETAILS -->
+        <div class="profile-left">
+
+            <h3 class="user-info-title">👤 Account Information</h3>
+
+            <div class="info-line"><b>Name:</b> {{ session.get('name') }}</div>
+            <div class="info-line"><b>Email:</b> {{ session.get('email', 'Not available') }}</div>
+            <div class="info-line"><b>Phone:</b> {{ session.get('phone', 'Not available') }}</div>
+            <div class="info-line"><b>DOB:</b> {{ session.get('dob', '-') }}</div>
+            <div class="info-line"><b>Age:</b> {{ session.get('age', '-') }}</div>
+
+            <br>
+
+            <a href="{{ url_for('logout') }}"
+               style="display:inline-block; padding:12px 30px; background:#ff4757; color:white; border-radius:25px; text-decoration:none;">
+               Logout
+            </a>
+        </div>
+
+
+        <!-- RIGHT: DASHBOARD SHORTCUTS -->
+        <div class="profile-right">
+
+            <div class="dashboard-card" onclick="window.location='{{ url_for('upload_page') }}'">
+                <div class="card-title">📤 Upload New Scan</div>
+                <div class="card-text">Upload a thyroid ultrasound for instant AI diagnosis.</div>
+            </div>
+
+            <div class="dashboard-card" onclick="window.location='{{ url_for('history') }}'">
+                <div class="card-title">📚 View Patient History</div>
+                <div class="card-text">Search previous scans by phone or email.</div>
+            </div>
+
+            <div class="dashboard-card" onclick="window.location='{{ url_for('report') }}'">
+                <div class="card-title">📄 View Last Report</div>
+                <div class="card-text">Open your latest AI-generated medical report.</div>
+            </div>
+
+            <div class="dashboard-card" onclick="window.location='{{ url_for('contact') }}'">
+                <div class="card-title">📞 Contact Support</div>
+                <div class="card-text">Get help or ask anything related to your reports.</div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}

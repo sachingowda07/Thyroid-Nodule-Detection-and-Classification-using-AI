@@ -1,0 +1,186 @@
+{% extends "base.html" %}
+{% block content %}
+
+<style>
+.history-container {
+    max-width: 1100px;
+    margin: 40px auto;
+    padding: 30px;
+    background: #ffffff;
+    border-radius: 25px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+    animation: fadeIn 0.8s ease;
+}
+
+.history-title {
+    text-align: center;
+    font-size: 32px;
+    font-weight: 800;
+    color: #003366;
+    margin-bottom: 10px;
+}
+
+.search-box {
+    margin: 25px auto;
+    max-width: 600px;
+    display: flex;
+    gap: 10px;
+}
+
+.search-input {
+    flex: 1;
+    padding: 14px;
+    border: 2px solid #003366;
+    border-radius: 12px;
+    font-size: 17px;
+}
+
+.search-btn {
+    padding: 14px 25px;
+    font-size: 16px;
+    background: #ff4757;
+    border: none;
+    color: white;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: 0.25s;
+}
+
+.search-btn:hover {
+    background: #e84141;
+}
+
+.table-container {
+    margin-top: 30px;
+    overflow-x: auto;
+}
+
+.results-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 15px;
+}
+
+.results-table th {
+    background: #003366;
+    color: white;
+    padding: 12px 8px;
+}
+
+.results-table td {
+    padding: 12px 8px;
+    border-bottom: 1px solid #ddd;
+}
+
+.results-table tr:hover {
+    background: #f3f7ff;
+}
+
+.view-btn {
+    padding: 8px 18px;
+    background: #1f6bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-size: 14px;
+}
+
+.view-btn:hover {
+    background: #1554cc;
+}
+
+.result-img {
+    width: 60px;
+    height: 60px;
+    border-radius: 10px;
+    object-fit: cover;
+}
+
+.no-results {
+    text-align: center;
+    padding: 20px;
+    color: #666;
+    font-size: 17px;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+</style>
+
+<div class="history-container">
+
+    <h2 class="history-title">Patient History</h2>
+
+    <!-- SEARCH BOX -->
+    <form method="POST" class="search-box">
+        <input type="text" name="keyword" class="search-input"
+               placeholder="Search by Email, Phone, or Patient Name" required>
+        <button type="submit" class="search-btn">Search</button>
+    </form>
+
+    <!-- RESULTS TABLE -->
+    <div class="table-container">
+        {% if results and results|length > 0 %}
+        <table class="results-table">
+            <tr>
+                <th>Image</th>
+                <th>Patient</th>
+                <th>Contact</th>
+                <th>Prediction</th>
+                <th>Confidence</th>
+                <th>Date/Time</th>
+                <th>Report</th>
+            </tr>
+
+            {% for row in results %}
+            <tr>
+                <td><img src="{{ row[6] }}" class="result-img"></td>
+
+                <td>
+                    <b>{{ row[1] }}</b><br>
+                    Age: {{ row[2] }} <br>
+                    Gender: {{ row[3] }}
+                </td>
+
+                <td>
+                    {{ row[4] }}<br>
+                    {{ row[5] }}
+                </td>
+
+                <td>{{ row[7] }}</td>
+
+                <td>{{ row[8] }}%</td>
+
+                <td>{{ row[9] }}</td>
+
+                <td>
+                    <a class="view-btn"
+                       href="{{ url_for('report',
+                           image_path=row[6],
+                           label=row[7],
+                           confidence=row[8],
+                           explanation='AI Report',
+                           patient_name=row[1],
+                           age=row[2],
+                           gender=row[3],
+                           phone=row[4],
+                           email=row[5],
+                           date_time=row[9]
+                       ) }}">
+                       View
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+
+        {% else %}
+        <p class="no-results">No records found. Please search by email, phone, or name.</p>
+        {% endif %}
+    </div>
+
+</div>
+
+{% endblock %}

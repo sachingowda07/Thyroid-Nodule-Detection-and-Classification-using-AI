@@ -1,0 +1,191 @@
+{% extends "base.html" %}
+{% block content %}
+
+<style>
+.about-section {
+    max-width: 1100px;
+    margin: 40px auto;
+    padding: 30px;
+    background: #ffffff;
+    border-radius: 25px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    animation: fadeIn 0.8s ease;
+}
+
+.about-title {
+    font-size: 36px;
+    font-weight: 700;
+    color: #003366;
+    text-align: center;
+}
+
+.about-sub {
+    font-size: 17px;
+    color: #555;
+    text-align: center;
+    margin-top: 8px;
+    margin-bottom: 35px;
+}
+
+/* Cards */
+.about-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+    gap: 25px;
+}
+
+.card {
+    background: white;
+    padding: 25px;
+    border-radius: 20px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+    transition: 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.18);
+}
+
+/* Icons */
+.card-icon {
+    font-size: 40px;
+    color: #0052cc;
+    margin-bottom: 10px;
+}
+
+/* Team Section */
+.team-section {
+    margin-top: 50px;
+}
+
+.team-title {
+    text-align: center;
+    font-size: 30px;
+    font-weight: 700;
+    color: #003366;
+}
+
+.team-grid {
+    margin-top: 30px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 25px;
+}
+
+.team-card {
+    text-align: center;
+    background: white;
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+}
+
+.team-card img {
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid #0052cc;
+    margin-bottom: 12px;
+}
+
+.team-card h4 {
+    margin: 5px 0;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.team-role {
+    color: #666;
+    font-size: 14px;
+}
+
+/* Fade animation */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+</style>
+
+<div class="about-section">
+
+    <h2 class="about-title">About ThyroidDetect</h2>
+    <p class="about-sub">AI-Powered Thyroid Ultrasound Classification & Medical Decision Support</p>
+
+    <!-- Mission -->
+    <div class="about-grid">
+        <div class="card">
+            <div class="card-icon">💡</div>
+            <h3>Our Mission</h3>
+            <p>
+                To make thyroid disorder detection fast, reliable, and accessible using cutting-edge
+                deep-learning technology trained on real medical ultrasound datasets.
+            </p>
+        </div>
+
+        <div class="card">
+            <div class="card-icon">🧠</div>
+            <h3>How Our AI Works</h3>
+            <p>
+                The system analyzes uploaded ultrasound images to classify nodules into
+                Benign, Stage 1, Stage 2, or Stage 3 using a custom-trained EfficientNet-B0 model.
+            </p>
+        </div>
+
+        <div class="card">
+            <div class="card-icon">🔬</div>
+            <h3>Medical Value</h3>
+            <p>
+                Early detection improves patient outcomes. ThyroidDetect assists doctors by providing
+                an instant risk-assessment based on thousands of training samples.
+            </p>
+        </div>
+
+        <div class="card">
+            <div class="card-icon">🔒</div>
+            <h3>Your Privacy</h3>
+            <p>
+                All uploaded images and patient data stay securely stored inside your device or
+                project database only. No external servers or cloud uploads.
+            </p>
+        </div>
+    </div>
+
+
+    <!-- Team Section -->
+    <div class="team-section">
+        <h2 class="team-title">Our Project Team</h2>
+
+        <div class="team-grid">
+
+            <div class="team-card">
+                <img src="static/images/sachin.png" alt="Sachin" class="profile-img">
+                <h4>Sachin J</h4>
+                <p class="team-role">Lead Developer & AI Model Engineer</p>
+            </div>
+
+            <div class="team-card">
+                <img src="static/images/manoj.jpeg" alt="manoj" class="profile-img">
+                <h4>Manoj</h4>
+                <p class="team-role">Frontend & UI/UX Designer</p>
+            </div>
+
+            <div class="team-card">
+                <img src="static/images/shreyas.jpeg" alt="shreyas" class="profile-img">
+                <h4>Shreyas</h4>
+                <p class="team-role">Backend & Database Engineer</p>
+            </div>
+
+            <div class="team-card">
+                <img src="static/images/pranav.jpeg" alt="pranav" class="profile-img">
+                <h4>Pranav</h4>
+                <p class="team-role">Documentation & Testing Lead</p>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

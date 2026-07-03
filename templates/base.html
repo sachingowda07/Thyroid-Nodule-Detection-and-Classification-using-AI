@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Thyroid Detector</title>
+
+    <!-- Premium CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <header class="main-header glass-header">
+        <div class="header-left fade-in">
+            <div class="logo-box">AI</div>
+            <div>
+                <h2>AI Thyroid Detector</h2>
+                <p>Advanced Medical Scanner</p>
+            </div>
+        </div>
+
+        <nav class="header-nav fade-in">
+
+            <!-- HOME -->
+            <a href="{{ url_for('home_page') }}"
+               class="{% if active_page=='home' %}active{% endif %}">
+               Home
+            </a>
+
+            <!-- UPLOAD -->
+            <a href="{{ url_for('upload_page') }}" 
+               class="{% if active_page=='upload' %}active{% endif %}">
+               Upload
+            </a>
+
+            <!-- DISEASES -->
+            <a href="{{ url_for('diseases') }}" 
+               class="{% if active_page=='diseases' %}active{% endif %}">
+               Diseases
+            </a>
+
+            <!-- HISTORY (FIXED FROM 'report') -->
+            <a href="{{ url_for('history') }}" 
+               class="{% if active_page=='history' %}active{% endif %}">
+               History
+            </a>
+
+            <!-- ABOUT -->
+            <a href="{{ url_for('about') }}" 
+               class="{% if active_page=='about' %}active{% endif %}">
+               About
+            </a>
+
+            <!-- CONTACT -->
+            <a href="{{ url_for('contact') }}" 
+               class="{% if active_page=='contact' %}active{% endif %}">
+               Contact
+            </a>
+
+            {% if session.get('user_id') %}
+
+                <!-- PROFILE -->
+                <a href="{{ url_for('profile') }}" 
+                   class="{% if active_page=='profile' %}active{% endif %}">
+                   Profile
+                </a>
+                <a href="{{ url_for('history') }}" 
+   class="{% if active_page=='history' %}active{% endif %}">
+   History
+</a>
+
+
+                <!-- LOGOUT -->
+                <a href="{{ url_for('logout') }}">
+                    Logout
+                </a>
+
+            {% else %}
+
+                <!-- LOGIN -->
+                <a href="{{ url_for('login') }}" 
+                   class="{% if active_page=='login' %}active{% endif %}">
+                   Login
+                </a>
+
+                <!-- REGISTER -->
+                <a href="{{ url_for('register') }}" 
+                   class="{% if active_page=='register' %}active{% endif %}">
+                   Register
+                </a>
+
+            {% endif %}
+        </nav>
+    </header>
+
+
+    <!-- PAGE CONTENT -->
+    <main class="page-content fade-in">
+        {% block content %}{% endblock %}
+    </main>
+
+
+  <!-- FOOTER -->
+<footer class="main-footer fade-in">
+    <div>© 2025 ThyroidDetect — Final Year Project</div>
+
+    <div>
+        <strong>Team:</strong>
+        <span class="team-name" onclick="openProfile('sachin')">Sachin</span> |
+        <span class="team-name" onclick="openProfile('manoj')">Manoj</span> |
+        <span class="team-name" onclick="openProfile('shreyas')">Shreyas</span> |
+        <span class="team-name" onclick="openProfile('pranav')">Pranav</span>
+    </div>
+</footer>
+
+<!-- Profile Modal (KEEP OUTSIDE FOOTER) -->
+<div id="profileModal" class="modal">
+    <span class="close" onclick="closeProfile()">&times;</span>
+    <img id="profileImg" class="modal-content">
+    <div id="profileName"></div>
+</div>
+
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+
+<!-- Profile Modal -->
+<div id="profileModal" class="modal">
+    <span class="close" onclick="closeProfile()">&times;</span>
+    <img id="profileImg" class="modal-content">
+    <div id="profileName"></div>
+</div>
+
+<!-- ✅ JS FILE LINK -->
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+
+</body>
+</html>
+
+</body>
+</html>

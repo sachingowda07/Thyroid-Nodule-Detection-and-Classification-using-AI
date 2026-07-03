@@ -1,0 +1,213 @@
+{% extends "base.html" %}
+{% block content %}
+
+<style>
+.result-container {
+    max-width: 900px;
+    margin: 50px auto;
+    background: #ffffff;
+    border-radius: 22px;
+    padding: 35px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    animation: fadeIn 0.8s ease;
+}
+
+.result-title {
+    text-align: center;
+    font-size: 32px;
+    font-weight: 700;
+    color: #003366;
+    margin-bottom: 10px;
+}
+
+.result-sub {
+    text-align: center;
+    color: #444;
+    margin-bottom: 25px;
+}
+
+.result-box {
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.left-box {
+    flex: 1;
+    min-width: 300px;
+}
+
+.right-box {
+    flex: 1;
+    text-align: center;
+    min-width: 300px;
+}
+
+.right-box img {
+    width: 100%;
+    max-width: 350px;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.25);
+}
+
+/* ---------- STAGE COLORS ---------- */
+.stage-benign { color: #16a34a; }
+.stage-1 { color: #eab308; }
+.stage-2 { color: #fb8c00; }
+.stage-3 { color: #dc2626; }
+
+/* ---------- PROGRESS BAR ---------- */
+.bar { margin-top: 15px; }
+
+.progress-bg {
+    width: 100%;
+    height: 12px;
+    background: #e5e5e5;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    width: 0%;
+    transition: width 1s ease-in-out;
+    border-radius: 10px;
+}
+
+.fill-benign { background: linear-gradient(90deg, #4ade80, #22c55e); }
+.fill-stage1 { background: linear-gradient(90deg, #facc15, #eab308); }
+.fill-stage2 { background: linear-gradient(90deg, #fb923c, #f97316); }
+.fill-stage3 { background: linear-gradient(90deg, #f43f5e, #dc2626); }
+
+.back-btn, .report-btn {
+    display: inline-block;
+    margin-top: 25px;
+    padding: 12px 30px;
+    border-radius: 25px;
+    font-size: 16px;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.back-btn {
+    background: #6c757d;
+    color: white;
+}
+.back-btn:hover { background: #525b61; }
+
+.report-btn {
+    background: #ff4757;
+    color: white;
+    margin-left: 12px;
+}
+.report-btn:hover { background: #e84141; }
+
+/* ---------- PATIENT DETAILS BOX ---------- */
+.patient-box {
+    margin-top: 25px;
+    padding: 15px 20px;
+    border-radius: 15px;
+    background: #f5f7fa;
+    color: #333;
+    font-size: 15px;
+    line-height: 1.7;
+    border-left: 4px solid #003366;
+}
+
+.patient-box b { color: #003366; }
+
+@keyframes fadeIn {
+    from { opacity:0; transform:translateY(20px); }
+    to   { opacity:1; transform:translateY(0); }
+}
+</style>
+
+
+<div class="result-container">
+
+    <h2 class="result-title">Diagnosis Result</h2>
+    <p class="result-sub">Your AI-generated thyroid classification</p>
+
+    <div class="result-box">
+
+        <!-- LEFT SIDE -->
+        <div class="left-box">
+
+            {% if label == 'Benign' %}
+                <h2 class="stage-benign">🟢 {{ label }}</h2>
+            {% elif label == 'Stage 1' %}
+                <h2 class="stage-1">🟡 {{ label }}</h2>
+            {% elif label == 'Stage 2' %}
+                <h2 class="stage-2">🟠 {{ label }}</h2>
+            {% else %}
+                <h2 class="stage-3">🔴 {{ label }}</h2>
+            {% endif %}
+
+            <h3>Confidence: {{ confidence }}%</h3>
+
+            <div class="bar">
+                <div class="progress-bg">
+                    <div id="fillBar" class="progress-fill"></div>
+                </div>
+            </div>
+
+            <p style="margin-top: 20px; font-size: 17px; color:#444;">
+                {{ explanation }}
+            </p>
+
+            <!-- PATIENT INFO BOX -->
+            <div class="patient-box">
+                <div><b>Patient Name:</b> {{ patient_name }}</div>
+                <div><b>Age:</b> {{ age }}</div>
+                <div><b>Gender:</b> {{ gender }}</div>
+                <div><b>Phone:</b> {{ phone }}</div>
+                <div><b>Email:</b> {{ email }}</div>
+                <div><b>Date & Time:</b> {{ date_time }}</div>
+            </div>
+
+            <a href="{{ url_for('upload_page') }}" class="back-btn">Upload Another</a>
+
+            <a href="{{ url_for('report',
+                  image_path=image_path,
+                  label=label,
+                  confidence=confidence,
+                  explanation=explanation,
+                  patient_name=patient_name,
+                  age=age,
+                  gender=gender,
+                  phone=phone,
+                  email=email,
+                  date_time=date_time
+            ) }}" 
+               class="report-btn">View Full Report</a>
+
+        </div>
+
+        <!-- RIGHT SIDE -->
+        <div class="right-box">
+            <img src="{{ image_path }}" alt="Ultrasound Image">
+        </div>
+
+    </div>
+</div>
+
+
+<!-- PROGRESS BAR LOGIC -->
+<script>
+let conf = {{ confidence }};
+let bar = document.getElementById("fillBar");
+bar.style.width = conf + "%";
+
+{% if label == "Benign" %}
+bar.classList.add("fill-benign");
+{% elif label == "Stage 1" %}
+bar.classList.add("fill-stage1");
+{% elif label == "Stage 2" %}
+bar.classList.add("fill-stage2");
+{% else %}
+bar.classList.add("fill-stage3");
+{% endif %}
+</script>
+
+{% endblock %}

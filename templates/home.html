@@ -1,0 +1,207 @@
+{% extends "base.html" %}
+{% block content %}
+
+<style>
+    /* ---------------- HERO SECTION ---------------- */
+    .hero-section {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 60px 40px;
+        border-radius: 20px;
+        overflow: hidden;
+        background: url("{{ url_for('static', filename='images/hero4.jpg') }}") no-repeat center/cover;
+        position: relative;
+        min-height: 450px;
+    }
+
+    .hero-section::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.55);
+        z-index: 0;
+    }
+
+    .hero-left, .hero-right {
+        position: relative;
+        z-index: 2;
+    }
+
+    .hero-left {
+        max-width: 50%;
+        color: white;
+    }
+
+    .welcome-text {
+        font-size: 22px;
+        font-weight: 500;
+        color: #ffffff;
+        text-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
+        margin-bottom: 10px;
+    }
+
+    .hero-title {
+        font-size: 48px;
+        font-weight: 700;
+        line-height: 1.2;
+        color: white;
+        text-shadow: 0 0 12px rgba(255, 255, 255, 0.75);
+        margin-bottom: 15px;
+    }
+
+    .hero-sub {
+        font-size: 20px;
+        margin-bottom: 30px;
+        opacity: 0.96;
+        color: white;
+        text-shadow: 0 0 6px rgba(255, 255, 255, 0.55);
+    }
+
+    .btn-premium {
+        display: inline-block;
+        padding: 14px 28px;
+        border-radius: 10px;
+        background: #ff4b4b;
+        color: white;
+        font-size: 18px;
+        font-weight: 600;
+        text-decoration: none;
+        transition: 0.25s;
+        box-shadow: 0 6px 18px rgba(255, 0, 0, 0.4);
+    }
+
+    .btn-premium:hover {
+        background: #ff2a2a;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(255, 0, 0, 0.55);
+    }
+
+    .hero-image img {
+        width: 300px;
+        filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.7));
+        cursor: pointer;
+        transition: 0.3s ease-in-out;
+    }
+
+    .hero-image img:hover {
+        transform: scale(1.05);
+    }
+
+    /* ---------------- STEPS SECTION ---------------- */
+    .steps-container {
+        text-align: center;
+        margin-top: 60px;
+    }
+
+    .steps-title {
+        font-size: 32px;
+        font-weight: 700;
+        margin-bottom: 30px;
+        color: #0b2c5d;
+    }
+
+    .step-grid {
+        display: flex;
+        justify-content: space-around;
+        gap: 20px;
+        flex-wrap: wrap;
+    }
+
+    .step-card {
+        background: white;
+        width: 220px;
+        padding: 25px;
+        border-radius: 18px;
+        box-shadow: 0 6px 20px rgba(0,0,0,0.10);
+        transition: 0.25s;
+        cursor: pointer;
+        text-align: center;
+    }
+
+    .step-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 10px 28px rgba(0,0,0,0.16);
+    }
+
+    .step-number {
+        width: 55px;
+        height: 55px;
+        border-radius: 50%;
+        background: #ff4b4b;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 22px;
+        font-weight: 600;
+        margin: 0 auto 12px auto;
+        box-shadow: 0 4px 12px rgba(255, 0, 0, 0.4);
+    }
+
+    .step-card h3 {
+        font-size: 18px;
+        font-weight: 600;
+        color: #0b2c5d;
+        margin: 5px 0 0;
+    }
+</style>
+
+<!-- HERO SECTION -->
+<section class="hero-section fade-in">
+    
+    <div class="hero-left">
+        
+        {% if username %}
+        <h3 class="welcome-text">Welcome back, {{ username }} 👋</h3>
+        {% endif %}
+
+        <h1 class="hero-title">AI-Powered Thyroid Screening</h1>
+
+        <p class="hero-sub">
+            Upload your ultrasound scan and receive an instant medical-grade assessment.
+        </p>
+
+        <a href="{{ url_for('upload_page') }}" class="btn-premium">Start Diagnosis</a>
+    </div>
+
+    <div class="hero-right">
+        <div class="hero-image" onclick="window.location='{{ url_for('upload_page') }}'">
+            <img src="{{ url_for('static', filename='images/thyroid.png') }}" alt="Thyroid Illustration">
+        </div>
+    </div>
+
+</section>
+
+<!-- STEPS SECTION -->
+<section class="steps-container fade-in">
+    
+    <h2 class="steps-title">How It Works</h2>
+
+    <div class="step-grid">
+
+        <div class="step-card clickable" onclick="location.href='{{ url_for('upload_page') }}'">
+            <div class="step-number">1</div>
+            <h3>Upload Image</h3>
+        </div>
+
+        <div class="step-card clickable" onclick="location.href='{{ url_for('diseases') }}'">
+            <div class="step-number">2</div>
+            <h3>AI Analysis</h3>
+        </div>
+
+        <div class="step-card clickable" onclick="location.href='{{ url_for('history') }}'">
+            <div class="step-number">3</div>
+            <h3>View Reports</h3>
+        </div>
+
+        <div class="step-card clickable" onclick="location.href='{{ url_for('upload_page') }}'">
+            <div class="step-number">4</div>
+            <h3>Download PDF</h3>
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

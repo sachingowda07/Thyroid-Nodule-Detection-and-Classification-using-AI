@@ -1,0 +1,129 @@
+{% extends "base.html" %}
+{% block content %}
+
+<!-- INTERNAL CSS -->
+<style>
+.disease-container {
+    max-width: 1100px;
+    margin: 40px auto;
+    padding: 20px;
+}
+
+.disease-title {
+    font-size: 34px;
+    font-weight: 800;
+    color: #003366;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.disease-sub {
+    text-align: center;
+    color: #555;
+    margin-bottom: 40px;
+    font-size: 18px;
+}
+
+.disease-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+    gap: 25px;
+}
+
+.disease-card {
+    background: white;
+    padding: 25px;
+    border-radius: 22px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+    border-top: 5px solid #003366;
+    transition: 0.3s;
+    animation: fadeIn 1s ease;
+}
+
+.disease-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 10px 28px rgba(0,0,0,0.18);
+}
+
+.d-title {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: #003366;
+}
+
+.d-risk {
+    font-size: 15px;
+    margin-bottom: 12px;
+    font-weight: 600;
+}
+
+.green { color: #05a35a; }
+.orange { color: #ff8c00; }
+.yellow { color: #eab308; }
+.red { color: #d11a2a; }
+
+.d-info {
+    font-size: 15px;
+    line-height: 1.5;
+    color: #333;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+</style>
+
+<div class="disease-container">
+
+    <h2 class="disease-title">Thyroid Nodule Information</h2>
+    <p class="disease-sub">Learn about different types of thyroid nodules detected by our AI system.</p>
+
+    <div class="disease-grid">
+
+        <!-- BENIGN -->
+        <div class="disease-card">
+            <div class="d-title">🟢 Benign Nodule</div>
+            <div class="d-risk green">Risk Level: Very Low</div>
+            <div class="d-info">
+                Benign nodules are non-cancerous growths. They usually require 
+                periodic follow-up but are not a major health concern.
+            </div>
+        </div>
+
+        <!-- STAGE 1 -->
+        <div class="disease-card">
+            <div class="d-title">🟡 Stage 1 Nodule</div>
+            <div class="d-risk yellow">Risk Level: Low</div>
+            <div class="d-info">
+                Early-stage nodule with mild tissue irregularity. Follow-up imaging 
+                is suggested to ensure no abnormal growth.
+            </div>
+        </div>
+
+        <!-- STAGE 2 -->
+        <div class="disease-card">
+            <div class="d-title">🟠 Stage 2 Nodule</div>
+            <div class="d-risk orange">Risk Level: Moderate</div>
+            <div class="d-info">
+                Indicates increased growth activity. Medical consultation and 
+                thyroid function tests may be recommended.
+            </div>
+        </div>
+
+        <!-- STAGE 3 -->
+        <div class="disease-card">
+            <div class="d-title">🔴 Stage 3 Nodule</div>
+            <div class="d-risk red">Risk Level: High</div>
+            <div class="d-info">
+                High-risk nodule showing strong signs of malignancy. Immediate 
+                clinical evaluation is strongly advised.
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

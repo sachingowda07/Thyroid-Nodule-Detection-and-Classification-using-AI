@@ -1,0 +1,204 @@
+{% extends "base.html" %}
+{% block content %}
+
+<style>
+.report-container {
+    max-width: 1100px;
+    margin: 40px auto;
+    background: rgba(255,255,255,0.98);
+    padding: 35px;
+    border-radius: 25px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    backdrop-filter: blur(4px);
+    animation: fadeIn 1s ease;
+}
+
+.report-title {
+    text-align: center;
+    font-size: 34px;
+    font-weight: 800;
+    color: #003366;
+    margin-bottom: 10px;
+}
+
+.report-sub {
+    text-align: center;
+    color: #555;
+    margin-bottom: 35px;
+    font-size: 18px;
+}
+
+.report-flex {
+    display: flex;
+    gap: 40px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.report-card {
+    flex: 1;
+    min-width: 300px;
+    background: white;
+    padding: 25px;
+    border-radius: 20px;
+    box-shadow: 0 5px 18px rgba(0,0,0,0.1);
+}
+
+.report-head {
+    font-size: 22px;
+    font-weight: 700;
+    color: #003366;
+    margin-bottom: 10px;
+}
+
+.report-item {
+    font-size: 16px;
+    margin-bottom: 8px;
+    color: #333;
+}
+
+.report-image-block {
+    flex: 1;
+    min-width: 300px;
+    text-align: center;
+}
+
+.report-image-block img {
+    width: 100%;
+    max-width: 360px;
+    border-radius: 20px;
+    box-shadow: 0 8px 22px rgba(0,0,0,0.25);
+    margin-bottom: 25px;
+}
+
+.risk-box {
+    margin-top: 20px;
+}
+
+.risk-label {
+    font-size: 15px;
+    font-weight: 600;
+    color: #444;
+}
+
+.risk-bar {
+    width: 100%;
+    height: 12px;
+    background: #ddd;
+    border-radius: 20px;
+    margin-top: 6px;
+}
+
+.risk-fill {
+    height: 100%;
+    border-radius: 20px;
+    background: linear-gradient(90deg, #ff7675, #d63031);
+    width: 0%;
+    transition: width 1.2s ease;
+}
+
+/* Buttons */
+.reupload-btn {
+    display: inline-block;
+    margin-top: 25px;
+    background: #ff4757;
+    padding: 14px 35px;
+    color: white;
+    border-radius: 30px;
+    font-size: 17px;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.reupload-btn:hover {
+    background: #e84141;
+}
+
+.print-btn {
+    display: inline-block;
+    margin-top: 25px;
+    background: #003366;
+    padding: 14px 35px;
+    color: white;
+    border-radius: 30px;
+    font-size: 17px;
+    text-decoration: none;
+    transition: 0.3s;
+    margin-left: 15px;
+}
+
+.print-btn:hover {
+    background: #02224c;
+}
+
+@media print {
+    .main-header, .main-footer, .reupload-btn, .print-btn {
+        display: none !important;
+    }
+    .report-container {
+        margin: 0;
+        box-shadow: none;
+    }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+</style>
+
+
+<div class="report-container">
+
+    <h2 class="report-title">AI Thyroid Medical Report</h2>
+    <p class="report-sub">Generated using Deep-Learning Thyroid Classification</p>
+
+    <div class="report-flex">
+
+        <!-- LEFT SIDE -->
+        <div class="report-card">
+
+            <div class="report-head">Diagnosis Summary</div>
+
+            <div class="report-item"><b>Diagnosis:</b> {{ label }}</div>
+            <div class="report-item"><b>Confidence:</b> {{ confidence }}%</div>
+
+            <div class="report-item"><b>AI Summary:</b></div>
+            <div class="report-item" style="color:#555; margin-bottom:15px;">
+                {{ explanation }}
+            </div>
+
+            <div class="report-item"><b>Doctor Note:</b></div>
+            <div class="report-item" style="color:#666; margin-bottom:20px;">
+                Not provided.
+            </div>
+
+            <!-- Risk Meter -->
+            <div class="risk-box">
+                <div class="risk-label">Risk Level Meter:</div>
+                <div class="risk-bar">
+                    <div class="risk-fill" id="riskMeter"></div>
+                </div>
+            </div>
+
+            <!-- BUTTONS -->
+            <a href="{{ url_for('upload_page') }}" class="reupload-btn">🔄 Re-Upload Image</a>
+            <a onclick="window.print()" class="print-btn">🖨 Print</a>
+
+        </div>
+
+        <!-- RIGHT SIDE -->
+        <div class="report-image-block">
+            <div class="report-head">Uploaded Ultrasound Image</div>
+            <img src="{{ image_path }}" alt="Uploaded Image">
+        </div>
+
+    </div>
+</div>
+
+<script>
+let conf = {{ confidence }};
+document.getElementById("riskMeter").style.width = conf + "%";
+</script>
+
+{% endblock %}

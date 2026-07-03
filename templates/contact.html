@@ -1,0 +1,167 @@
+{% extends "base.html" %}
+{% block content %}
+
+<style>
+.contact-container {
+    max-width: 1100px;
+    margin: 40px auto;
+    padding: 35px;
+    background: #ffffff;
+    border-radius: 25px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    animation: fadeIn 0.8s ease;
+}
+
+.contact-title {
+    font-size: 34px;
+    font-weight: 800;
+    text-align: center;
+    color: #003366;
+}
+
+.contact-sub {
+    text-align: center;
+    color: #666;
+    margin-bottom: 40px;
+    font-size: 17px;
+}
+
+.contact-grid {
+    display: flex;
+    gap: 40px;
+    flex-wrap: wrap;
+}
+
+.contact-left {
+    flex: 1;
+    min-width: 320px;
+}
+
+.contact-right {
+    flex: 1;
+    min-width: 320px;
+}
+
+/* Form Styling */
+.contact-form input,
+.contact-form textarea {
+    width: 100%;
+    padding: 14px;
+    margin-bottom: 15px;
+    border-radius: 12px;
+    border: 1px solid #cccccc;
+    font-size: 16px;
+}
+
+.contact-form textarea {
+    height: 130px;
+    resize: none;
+}
+
+.send-btn {
+    background: #ff4757;
+    color: white;
+    padding: 14px 35px;
+    border-radius: 30px;
+    border: none;
+    cursor: pointer;
+    font-size: 17px;
+    transition: 0.3s;
+    margin-top: 10px;
+}
+
+.send-btn:hover {
+    background: #e84141;
+}
+
+/* Contact Info Cards */
+.info-card {
+    padding: 22px;
+    border-radius: 18px;
+    background: #f8faff;
+    border-left: 5px solid #003366;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.info-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #003366;
+}
+
+.info-text {
+    color: #444;
+    margin-top: 5px;
+}
+
+/* Map */
+.map-box {
+    margin-top: 20px;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+</style>
+
+<div class="contact-container">
+    
+    <h2 class="contact-title">Contact Us</h2>
+    <p class="contact-sub">
+        We're here to help you with any questions about ThyroidDetect.
+    </p>
+
+    <div class="contact-grid">
+
+        <!-- LEFT: Contact Form -->
+        <div class="contact-left">
+            <h3 style="color:#003366; font-weight:700; margin-bottom:15px;">Send a Message</h3>
+
+            <form class="contact-form">
+                <input type="text" placeholder="Your Name" required>
+                <input type="email" placeholder="Your Email" required>
+                <input type="text" placeholder="Subject" required>
+                <textarea placeholder="Your Message"></textarea>
+
+                <button class="send-btn">Send Message</button>
+            </form>
+        </div>
+
+        <!-- RIGHT: Contact Info -->
+        <div class="contact-right">
+
+            <div class="info-card">
+                <div class="info-title">📞 Phone</div>
+                <div class="info-text">+91 8123362631</div>
+            </div>
+
+            <div class="info-card">
+                <div class="info-title">📧 Email</div>
+                <div class="info-text">thyroiddetect@gmail.com</div>
+            </div>
+
+            <div class="info-card">
+                <div class="info-title">📍 Office Location</div>
+                <div class="info-text">Bengaluru, Karnataka, India</div>
+            </div>
+
+            <!-- Map -->
+            <div class="map-box">
+                <iframe 
+                    width="100%" 
+                    height="250px" 
+                    style="border:0; border-radius:15px;"
+                    loading="lazy"
+                    allowfullscreen
+                    src="https://www.google.com/maps/embed/v1/place?q=Bengaluru&key=YOUR_GOOGLE_MAPS_API_KEY">
+                </iframe>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}
